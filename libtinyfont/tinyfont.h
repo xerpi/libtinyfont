@@ -27,11 +27,11 @@ void tinyfont_draw_char(int x, int y, unsigned int color, char c);
 void tinyfont_draw_string(int x, int y, unsigned int color, const char *string);
 void tinyfont_draw_stringf(int x, int y, unsigned int color, const char *s, ...);
 void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int color,
-									  float amplitude, float frequency, float time,
-									  const char *string);
+									  float amplitude, float frequency, float lambda,
+									  float time, const char *string);
 void tinyfont_draw_stringf_sinusodial(int start_x, int start_y, unsigned int color,
-									  float amplitude, float frequency, float time,
-									  const char *s, ...);
+									  float amplitude, float frequency, float lambda,
+									  float time, const char *s, ...);
 
 #ifdef __cplusplus
 }

@@ -36,6 +36,7 @@ static void _tinyfont_draw_gu_char(int x, int y, unsigned int color, char c)
 
 void tinyfont_draw_char(int x, int y, unsigned int color, char c)
 {
+	sceGuDisable(GU_TEXTURE_2D);
 	sceGuColor(color);
 	_tinyfont_draw_gu_char(x, y, color, c);
 }
@@ -45,6 +46,7 @@ void tinyfont_draw_string(int x, int y, unsigned int color, const char *string)
     if(string == NULL) return;
     int startx = x;
     const char *s = string;
+	sceGuDisable(GU_TEXTURE_2D);
     sceGuColor(color);
     while(*s) {
         if(*s == '\n') {
@@ -72,18 +74,19 @@ void tinyfont_draw_stringf(int x, int y, unsigned int color, const char *s, ...)
 }
 
 void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int color,
-									  float amplitude, float frequency, float time,
-									  const char *string)
+									  float amplitude, float frequency, float lambda,
+									  float time, const char *string)
 {
 	
-	if(string == NULL) return;
+	if(string == NULL || lambda == 0.0f) return;
     const char *s = string;
-    float length = strlen(string) * 8.0f;
+    //float length = strlen(string) * 8.0f;
     float x = 0.0f, y = 0.0f;
     float _2A = 2.0f * amplitude;
-    float k = _2PI/length;
+    float k = _2PI/lambda;
     float omega = _2PI*frequency;
     
+	sceGuDisable(GU_TEXTURE_2D);
     sceGuColor(color);
     while(*s) {
         if (*s != '\n' && *s != '\t') {
@@ -97,14 +100,14 @@ void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int colo
 									  
 
 void tinyfont_draw_stringf_sinusodial(int start_x, int start_y, unsigned int color,
-									  float amplitude, float frequency, float time,
-									  const char *s, ...)
+									  float amplitude, float frequency, float lambda,
+									  float time, const char *s, ...)
 {
 	
     char buffer[256];
     va_list args;
     va_start(args, s);
     vsnprintf(buffer, 256, s, args);
-    tinyfont_draw_string_sinusodial(start_x, start_y, color, amplitude, frequency, time, buffer);
+    tinyfont_draw_string_sinusodial(start_x, start_y, color, amplitude, frequency, lambda, time, buffer);
     va_end(args);	
 }
