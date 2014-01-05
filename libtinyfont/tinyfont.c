@@ -24,13 +24,13 @@ static void _tinyfont_draw_gu_char(int x, int y, unsigned int color, char c)
         b = vincent_font_data[offset_pos + i];
         for(j = 0; j < 8; j++) {
             if(b & (1<<j)) {
-				_tinyfont_static_vertices[count] = (Vertex3S){(short)(x+(7-j)), (short)(y+i), 0};
-				++count;
+                _tinyfont_static_vertices[count] = (Vertex3S){(short)(x+(7-j)), (short)(y+i), 0};
+                ++count;
             }
         }
     }
-	Vertex3S *vertices = sceGuGetMemory(count * sizeof(Vertex3S));
-	memcpy(vertices, _tinyfont_static_vertices, count * sizeof(Vertex3S));
+    Vertex3S *vertices = sceGuGetMemory(count * sizeof(Vertex3S));
+    memcpy(vertices, _tinyfont_static_vertices, count * sizeof(Vertex3S));
     sceGuDrawArray(GU_POINTS, GU_VERTEX_16BIT|GU_TRANSFORM_2D, count, 0, vertices);	
 }
 
@@ -46,7 +46,7 @@ void tinyfont_draw_string(int x, int y, unsigned int color, const char *string)
     if(string == NULL) return;
     int startx = x;
     const char *s = string;
-	sceGuDisable(GU_TEXTURE_2D);
+    sceGuDisable(GU_TEXTURE_2D);
     sceGuColor(color);
     while(*s) {
         if(*s == '\n') {
@@ -74,11 +74,11 @@ void tinyfont_draw_stringf(int x, int y, unsigned int color, const char *s, ...)
 }
 
 void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int color,
-									  float amplitude, float frequency, float lambda,
-									  float time, const char *string)
+                                     float amplitude, float frequency, float lambda,
+                                     float time, const char *string)
 {
 	
-	if(string == NULL || lambda == 0.0f) return;
+    if(string == NULL || lambda == 0.0f) return;
     const char *s = string;
     //float length = strlen(string) * 8.0f;
     float x = 0.0f, y = 0.0f;
@@ -86,7 +86,7 @@ void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int colo
     float k = _2PI/lambda;
     float omega = _2PI*frequency;
     
-	sceGuDisable(GU_TEXTURE_2D);
+    sceGuDisable(GU_TEXTURE_2D);
     sceGuColor(color);
     while(*s) {
         if (*s != '\n' && *s != '\t') {
@@ -100,8 +100,8 @@ void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int colo
 									  
 
 void tinyfont_draw_stringf_sinusodial(int start_x, int start_y, unsigned int color,
-									  float amplitude, float frequency, float lambda,
-									  float time, const char *s, ...)
+                                      float amplitude, float frequency, float lambda,
+                                      float time, const char *s, ...)
 {
 	
     char buffer[256];
