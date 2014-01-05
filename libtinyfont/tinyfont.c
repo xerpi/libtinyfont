@@ -50,7 +50,7 @@ void tinyfont_draw_string(int x, int y, unsigned int color, const char *string)
     sceGuColor(color);
     while(*s) {
         if(*s == '\n') {
-			x = startx;
+            x = startx;
             y+=8;
         } else if(*s == '\t') {
             x+=8*4;
@@ -90,7 +90,7 @@ void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int colo
     sceGuColor(color);
     while(*s) {
         if (*s != '\n' && *s != '\t') {
-			y = _2A*cosf(k*x)*sinf(omega*time);
+            y = _2A*cosf(k*x)*sinf(omega*time);
             _tinyfont_draw_gu_char(start_x + x, start_y + y, color, *s);
             x+=8;
         }
