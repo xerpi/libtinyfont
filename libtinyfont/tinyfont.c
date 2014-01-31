@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
+#include <pspmath.h>
 
 extern const unsigned char msx_font[];
 
@@ -80,6 +81,8 @@ void tinyfont_draw_char16x16(int x, int y, unsigned int color, char c)
 {
     if(c == ' ') return;
     unsigned char *glyph = (unsigned char*)(msx_font + c * 8);
+    sceGuDisable(GU_TEXTURE_2D);
+    sceGuColor(color);
     int i, j;
     for (i = 0; i < 8; ++i, ++glyph) {
         for (j = 0; j < 8; ++j) {
@@ -124,6 +127,29 @@ void tinyfont_draw_stringf16x16(int x, int y, unsigned int color, const char *s,
     tinyfont_draw_string16x16(x, y, color, buffer);
     va_end(args);
 }
+
+
+void tinyfont_draw_rotated_string(int x, int y, unsigned int color, float angle, const char *string)
+{
+    if(string == NULL) return;
+    float _x = (float)x, _y = (float)y;
+    float step_x = vfpu_cosf(angle) * 8.0f;
+    float step_y = vfpu_sinf(angle) * 8.0f;
+    const char *s = string;
+    sceGuDisable(GU_TEXTURE_2D);
+    sceGuColor(color);
+    while(*s) {
+        if(*s == '\t') {
+            _x += step_x*4;
+        } else {
+            _tinyfont_draw_gu_char(_x, _y, color, *s);
+            _x += step_x;
+            _y += step_y;
+        }
+        ++s;
+    }
+}
+
 
 void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int color,
                                      float amplitude, float frequency, float lambda,

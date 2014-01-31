@@ -26,6 +26,7 @@ void tinyfont_draw_char16x16(int x, int y, unsigned int color, char c);
 void tinyfont_draw_string16x16(int x, int y, unsigned int color, const char *string);
 void tinyfont_draw_stringf16x16(int x, int y, unsigned int color, const char *s, ...);
 
+void tinyfont_draw_rotated_string(int x, int y, unsigned int color, float angle, const char *string);
 
 void tinyfont_draw_string_sinusodial(int start_x, int start_y, unsigned int color,
 									  float amplitude, float frequency, float lambda,
