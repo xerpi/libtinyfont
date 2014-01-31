@@ -83,10 +83,9 @@ int main(void)
 		//tinyfont_draw_string(20, 70, GU_RGB(255,255,0), lorem_ipsum);
 		
 		tinyfont_draw_string_sinusodial(20, 136, GU_RGB(0,255,0),  
-									  50.0f, 1.0f, angle/45.0f,  
+									  50.0f, 1.0f, angle/45.0f, 0.0f, 
 									  "I'm a text, oh no I'm a stationary wave, oh no I'm both!");
-		
-		
+                                      
 		tinyfont_draw_stringf(380, 10,  GU_RGB(0,0,255), "FPS: %.2f", fps);
 
 		guEnd();

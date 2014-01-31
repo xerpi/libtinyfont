@@ -1,7 +1,7 @@
 #include "vram.h"
-
-#include <pspge.h>
 #include <pspgu.h>
+#include <pspge.h>
+
 
 static unsigned int staticOffset = 0;
 
